@@ -1,0 +1,53 @@
+import speech_recognition as sr
+from gtts import gTTS
+import os
+
+def voice_search_assistant():
+    # Initialize recognizer and microphone
+    recognizer = sr.Recognizer()
+
+    with sr.Microphone() as source:
+        print("Say something:")
+        recognizer.adjust_for_ambient_noise(source)  # Adjust for ambient noise
+        audio = recognizer.listen(source)
+
+    try:
+        # Recognize speech using Google Speech Recognition
+        query = recognizer.recognize_google(audio)
+        print("You said:", query)
+
+        # Replace this with your logic to generate links based on the query
+        links = get_links_for_query(query)
+
+        # Speak back the links
+        speak_links(links)
+
+    except sr.UnknownValueError:
+        print("Could not understand audio")
+    except sr.RequestError as e:
+        print("Could not request results; {0}".format(e))
+
+def get_links_for_query(query):
+    # Replace this with your logic to generate links based on the query
+    # This could involve web scraping, querying a database, or any other method
+    # For simplicity, let's assume a predefined set of links for demonstration purposes
+    predefined_links = {
+        "python": "https://www.python.org/",
+        "machine learning": "https://www.tensorflow.org/",
+        "artificial intelligence": "https://www.openai.com/"
+    }
+
+    return predefined_links.get(query.lower(), "No link found for the query.")
+
+def speak_links(links):
+    for query, link in links.items():
+        text_to_speech(f"For the query {query}, the link is {link}")
+
+def text_to_speech(text):
+    # Convert text to speech using Google Text-to-Speech
+    tts = gTTS(text=text, lang="en")
+    tts.save("output.mp3")
+    os.system("start output.mp3")
+
+if __name__ == "__main__":
+    voice_search_assistant()
