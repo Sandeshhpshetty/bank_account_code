@@ -1,0 +1,52 @@
+class Bank:
+    def __init__(self):
+        self.balance=0
+
+    def account_number(self):
+        while True:
+            account_number = int(input("Enter your account number: "))
+            if account_number == 123:
+                print("Welcome to the bank!")
+                break
+            else:
+                print("Account number does not exist. Please try again.")
+    
+    def deposite(self):
+        amount=int(input("enter the amount to deposite"))
+        self.balance+=amount
+        print(f"new balance : {self.balance}")
+    
+
+    def withdrawl(self):
+        amount=int(input("enter the amount to withdrawl"))
+        if self.balance-amount<0:
+            print("inalid amount")
+        else:
+            self.balance-=amount
+            print(f"newbalance : {self.balance}")
+    
+    
+
+    def getbalance(self):
+        print(f"amount remaining : {self.balance}")
+   
+
+
+
+bank=Bank()
+print("welcome to BOB")
+while True:
+    bank.account_number()
+    print("1.deposite")
+    print("2.withdrawl")
+    print("3.balance")
+    what=int(input("enter the option"))
+    if what==1:
+        bank.deposite()
+    elif what==2:
+        bank.withdrawl()
+    elif what==3:
+        bank.getbalance()
+    else:
+        print("invalid input")
+
